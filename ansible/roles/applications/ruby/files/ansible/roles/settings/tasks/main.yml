@@ -2,3 +2,5 @@
   git: "repo=%REPOSITORY% version=%BRANCH% dest=/var/tmp/%PROJECT% update=yes accept_hostkey=yes"
 - name: bundle install
   shell: bundle install chdir=/var/tmp/%PROJECT%/%GEMFILE%
+- name: execute test
+  shell: rspec %RSPEC% --format RspecJunitFormatter --out rspec.xml
