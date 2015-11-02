@@ -5,5 +5,5 @@
   tags: always
   composer: "command=install prefer_dist=yes working_dir=/var/tmp/"
 - name: composer install (for application)
-  tags: composer
+  tags: with_composer
   composer: "command=install prefer_dist=yes working_dir=/var/tmp/%PROJECT%/%COMPOSER%"

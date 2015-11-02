@@ -7,6 +7,11 @@
 - name: copy test files to container (PHP5.6 application)
   shell: tar -cv * | sudo docker exec -i php5.6 tar x -C /var/tmp chdir=build
   sudo: yes
-- name: docker provision (PHP5.6 application)
+- name: docker provision (PHP5.6 application with composer)
+  shell: docker exec -t php5.6 ansible-playbook -t with_composer -i "localhost," /root/ansible/settings.yml
+  tags: with_composer
+  sudo: yes
+- name: docker provision (PHP5.6 application without composer)
   shell: docker exec -t php5.6 ansible-playbook -i "localhost," /root/ansible/settings.yml
+  tags: without_composer
   sudo: yes

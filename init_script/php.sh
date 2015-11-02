@@ -1,6 +1,6 @@
 #!/bin/bash
 # usage:
-# $> sudo sh php.sh https://github.com/mapserver2007/jenkins-echelon.git master php5.6
+# $> sudo sh php.sh https://github.com/mapserver2007/jenkins-echelon.git master php5.6 sample/php
 # arg1: git repository uri
 # arg2: branch name
 # arg3: tag name
@@ -20,11 +20,12 @@ tag=$3
 
 # get composer path
 composer=""
-ansible="ansible-playbook -t $tag -i 'localhost,' ansible/setup.yml"
-
+ansible=""
 if [ -n "$4" ]; then
-  ansible="ansible-playbook -t $tag,composer -i 'localhost,' ansible/setup.yml"
+  ansible="ansible-playbook -t $tag,with_composer -i 'localhost,' ansible/setup.yml"
   composer=$4
+else
+  ansible="ansible-playbook -t $tag,without_composer -i 'localhost,' ansible/setup.yml"
 fi
 
 # replace text
