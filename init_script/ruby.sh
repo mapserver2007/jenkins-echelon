@@ -4,7 +4,8 @@
 # arg1: git repository uri
 # arg2: branch name
 # arg3: tag name
-# arg4:
+# arg4: rspec directory path
+# arg5: Gemfile path
 
 # ansible task
 taskfile="ansible/roles/applications/ruby/files/ansible/roles/settings/tasks/main.yml"
@@ -45,6 +46,8 @@ eval ${cmd5}
 ansible="ansible-playbook -t $3 -i 'localhost,' ansible/setup.yml"
 eval ${ansible}
 
-# get test result
+# run test and get test result
+runtest="rspec /var/tmp/$project/$rspec --format RspecJunitFormatter --out /var/tmp/$project/result.xml"
 dockercp="docker cp $tag:/var/tmp/$project/result.xml ."
+eval ${runtest}
 eval ${dockercp}
