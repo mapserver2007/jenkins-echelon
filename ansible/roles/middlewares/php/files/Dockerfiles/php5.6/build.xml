@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<project name="unitTest" basedir="." default="test">
+    <target name="test">
+        <phpunit haltonfailure="false" printsummary="true">
+            <formatter type="xml" outfile="result.xml"/>
+            <batchtest>
+                <fileset dir="Test">
+                    <include name="**/*Test.php" />
+                </fileset>
+            </batchtest>
+        </phpunit>
+    </target>
+</project>

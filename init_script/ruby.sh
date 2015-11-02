@@ -1,6 +1,6 @@
 #!/bin/bash
 # usage:
-# $> sudo sh init.sh https://github.com/rankforce/infrastructure.git master ruby2.2
+# $> sudo sh init.sh https://github.com/hoge/repository.git master ruby2.2
 # arg1: git repository uri
 # arg2: branch name
 # arg3: tag name

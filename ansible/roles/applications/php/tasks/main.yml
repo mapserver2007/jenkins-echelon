@@ -1,0 +1,5 @@
+- name: copy ansible file
+  tags: always
+  copy: src=ansible dest="{{ ansible_env.PWD }}"
+- include: php5.6/docker-run-provision.yml
+  tags: php5.6

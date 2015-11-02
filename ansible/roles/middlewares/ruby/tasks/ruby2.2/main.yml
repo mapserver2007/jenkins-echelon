@@ -3,6 +3,6 @@
   tags: ruby2.2
   sudo: yes
 - name: docker build
-  shell: docker build -t docker/ruby {{ ansible_env.PWD }}/roles/middlewares/ruby/files/Dockerfiles/ruby2.2/
+  shell: docker build -t docker/ruby2.2 {{ ansible_env.PWD }}/roles/middlewares/ruby/files/Dockerfiles/ruby2.2/
   tags: ruby2.2
   sudo: yes
