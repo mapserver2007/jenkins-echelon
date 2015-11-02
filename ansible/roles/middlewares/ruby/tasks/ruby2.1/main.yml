@@ -1,0 +1,8 @@
+- name: docker container clear
+  shell: docker ps -a | grep ruby21 | awk '{print $1}' | xargs --no-run-if-empty docker rm -f
+  tags: ruby2.1
+  sudo: yes
+- name: docker build
+  shell: docker build -t docker/ruby {{ ansible_env.PWD }}/roles/middlewares/ruby/files/Dockerfiles/ruby2.1/
+  tags: ruby2.1
+  sudo: yes

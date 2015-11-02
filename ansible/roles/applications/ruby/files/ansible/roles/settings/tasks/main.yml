@@ -1,0 +1,4 @@
+- name: get from repository
+  git: "repo=%REPOSITORY_URL% version=%BRANCH% dest=/var/tmp update=yes accept_hostkey=yes"
+- name: bundle install
+  shell: bundle install chdir=/var/tmp

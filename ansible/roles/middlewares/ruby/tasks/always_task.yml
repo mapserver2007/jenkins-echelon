@@ -1,0 +1,6 @@
+- include: ruby2.0/main.yml
+  tags: ruby2.0
+- include: ruby2.1/main.yml
+  tags: ruby2.1
+- include: ruby2.2/main.yml
+  tags: ruby2.2
