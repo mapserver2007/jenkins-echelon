@@ -2,7 +2,5 @@
 - hosts: localhost
   connection: local
   roles:
-    - role: middlewares/ruby
-      tags: [ruby2.0, ruby2.1, ruby2.2]
-    - role: applications/ruby
-      tags: [ruby2.0, ruby2.1, ruby2.2]
+    - middlewares/ruby
+    - applications/ruby
