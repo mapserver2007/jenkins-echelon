@@ -20,7 +20,10 @@ tag=$3
 
 # get composer path
 composer=""
+ansible="ansible-playbook -t $tag -i 'localhost,' ansible/setup.yml"
+
 if [ -n "$4" ]; then
+  ansible="ansible-playbook -t $tag,composer -i 'localhost,' ansible/setup.yml"
   composer=$4
 fi
 
@@ -39,7 +42,6 @@ cmd5="sed -i -e 's@PROJECT@$project@' /var/tmp/build.xml"
 eval ${cmd5}
 
 # execte script
-ansible="ansible-playbook -t $tag -i 'localhost,' ansible/setup.yml"
 eval ${ansible}
 
 # run test and get test result

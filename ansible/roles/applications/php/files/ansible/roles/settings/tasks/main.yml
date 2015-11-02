@@ -1,6 +1,9 @@
 - name: get from repository
+  tags: always
   git: "repo=%REPOSITORY% version=%BRANCH% dest=/var/tmp/%PROJECT% update=yes accept_hostkey=yes"
 - name: composer install (for build)
+  tags: always
   composer: "command=install prefer_dist=yes working_dir=/var/tmp/"
 - name: composer install (for application)
+  tags: composer
   composer: "command=install prefer_dist=yes working_dir=/var/tmp/%PROJECT%/%COMPOSER%"
