@@ -1,4 +1,6 @@
 - name: get from repository
   git: "repo=%REPOSITORY% version=%BRANCH% dest=/var/tmp/%PROJECT% update=yes accept_hostkey=yes"
-- name: composer install
-  composer: "command=install prefer_dist=yes working_dir=/var/tmp/%COMPOSER%"
+- name: composer install (for build)
+  composer: "command=install prefer_dist=yes working_dir=/var/tmp/"
+- name: composer install (for application)
+  composer: "command=install prefer_dist=yes working_dir=/var/tmp/%PROJECT%/%COMPOSER%"

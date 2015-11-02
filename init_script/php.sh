@@ -7,7 +7,7 @@
 # arg4: rspec directory path
 # arg5: Gemfile path
 
-# ansible task
+# ansible task file
 taskfile="ansible/roles/applications/php/files/ansible/roles/settings/tasks/main.yml"
 
 # get project name
@@ -33,6 +33,10 @@ eval ${cmd1}
 eval ${cmd2}
 eval ${cmd3}
 eval ${cmd4}
+
+# build.xml
+cmd5="sed -i -e 's@PROJECT@$project@' /var/tmp/build.xml"
+eval ${cmd5}
 
 # execte script
 ansible="ansible-playbook -t $tag -i 'localhost,' ansible/setup.yml"

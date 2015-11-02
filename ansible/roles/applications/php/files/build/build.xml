@@ -4,7 +4,7 @@
         <phpunit haltonfailure="false" printsummary="true">
             <formatter type="xml" outfile="result.xml"/>
             <batchtest>
-                <fileset dir="Test">
+                <fileset dir="%PROJECT%">
                     <include name="**/*Test.php" />
                 </fileset>
             </batchtest>
