@@ -47,7 +47,7 @@ ansible="ansible-playbook -t $3 -i 'localhost,' ansible/setup.yml"
 eval ${ansible}
 
 # run test and get test result
-runtest="rspec /var/tmp/$project/$rspec --format RspecJunitFormatter --out /var/tmp/$project/result.xml"
+runtest="docker exec -t $tag rspec /var/tmp/$project/$rspec --format RspecJunitFormatter --out /var/tmp/$project/result.xml"
 dockercp="docker cp $tag:/var/tmp/$project/result.xml ."
 eval ${runtest}
 eval ${dockercp}
