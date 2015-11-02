@@ -5,9 +5,12 @@ if [ $# -ne 2 ]; then
 fi
 
 # replace text
-sed -i -e "s/%REPOSITORY_URL%/$1/g" ansible/roles/applications/ruby/files/ansible/roles/settings/tasks/main.yml
-sed -i -e "s/%BRANCH%/$2/g" ansible/roles/applications/ruby/files/ansible/roles/settings/tasks/main.yml
+script1="sed -i -e 's/%REPOSITORY_URL%/$1/g' ansible/roles/applications/ruby/files/ansible/roles/settings/tasks/main.yml"
+script2="sed -i -e 's/%BRANCH%/$2/g' ansible/roles/applications/ruby/files/ansible/roles/settings/tasks/main.yml"
+
+eval ${script1}
+eval ${script2}
 
 # execte script
 script="ansible-playbook -t $3 -i 'localhost,' ansible/setup.yml"
-${script}
+eval ${script}
