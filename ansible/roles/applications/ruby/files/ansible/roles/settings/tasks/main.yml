@@ -3,4 +3,4 @@
 - name: bundle install
   shell: bundle install chdir=/var/tmp/%PROJECT%/%GEMFILE%
 - name: execute test
-  shell: rspec %RSPEC% --format RspecJunitFormatter --out /var/tmp/%PROJECT%/result.xml
+  shell: rspec /var/tmp/%PROJECT%/%RSPEC% --format RspecJunitFormatter --out /var/tmp/%PROJECT%/result.xml
