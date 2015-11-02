@@ -1,9 +1,9 @@
 - name: docker run (Ruby2.0 application)
-  shell: docker run -itd --name ruby20 docker/ruby /sbin/init
+  shell: docker run -itd --name ruby2.0 docker/ruby /sbin/init
   sudo: yes
 - name: copy ansible files to container (Ruby2.0 application)
-  shell: tar -cv * | sudo docker exec -i ruby20 tar x -C /root/ansible chdir=ansible
+  shell: tar -cv * | sudo docker exec -i ruby2.0 tar x -C /root/ansible chdir=ansible
   sudo: yes
 - name: docker provision (Ruby2.0 application)
-  shell: docker exec -t ruby20 ansible-playbook -i "localhost," /root/ansible/settings.yml
+  shell: docker exec -t ruby2.0 ansible-playbook -i "localhost," /root/ansible/settings.yml
   sudo: yes

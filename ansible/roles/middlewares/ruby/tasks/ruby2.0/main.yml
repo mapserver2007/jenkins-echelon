@@ -1,5 +1,5 @@
 - name: docker container clear
-  shell: docker ps -a | grep ruby20 | awk '{print $1}' | xargs --no-run-if-empty docker rm -f
+  shell: docker ps -a | grep ruby2.0 | awk '{print $1}' | xargs --no-run-if-empty docker rm -f
   tags: ruby2.0
   sudo: yes
 - name: docker build

@@ -10,6 +10,9 @@ git_uri="$1"
 filename=${git_uri##*/}
 project=${filename%.*}
 
+# tag
+tag=$2
+
 # get gemfile path
 gemfile=""
 if [ -n "$4" ]; then
@@ -24,7 +27,7 @@ fi
 
 # replace text
 cmd1="sed -i -e 's@%REPOSITORY%@$1@g' $taskfile"
-cmd2="sed -i -e 's@%BRANCH%@$2@g' $taskfile"
+cmd2="sed -i -e 's@%BRANCH%@$tag@g' $taskfile"
 cmd3="sed -i -e 's@%PROJECT%@$project@g' $taskfile"
 cmd4="sed -i -e 's@%GEMFILE%@$gemfile@g' $taskfile"
 cmd5="sed -i -e 's@%RSPEC%@$rspec@g' $taskfile"
@@ -35,5 +38,9 @@ eval ${cmd4}
 eval ${cmd5}
 
 # execte script
-script="ansible-playbook -t $3 -i 'localhost,' ansible/setup.yml"
-eval ${script}
+ansible="ansible-playbook -t $3 -i 'localhost,' ansible/setup.yml"
+eval ${ansible}
+
+# get test result
+dockercp="docker cp $tag:/var/tmp/$project/result.xml ."
+eval ${dockercp}

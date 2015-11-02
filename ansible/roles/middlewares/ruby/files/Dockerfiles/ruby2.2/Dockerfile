@@ -1,6 +1,6 @@
 FROM ruby:2.2.3
 
-RUN mkdir /root/ansible /root/secret_keys
+RUN mkdir /root/ansible
 WORKDIR /root/ansible
 
 RUN apt-get update \
