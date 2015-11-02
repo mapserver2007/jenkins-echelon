@@ -27,7 +27,7 @@ cmd1="sed -i -e 's@%REPOSITORY%@$1@g' $taskfile"
 cmd2="sed -i -e 's@%BRANCH%@$2@g' $taskfile"
 cmd3="sed -i -e 's@%PROJECT%@$project@g' $taskfile"
 cmd4="sed -i -e 's@%GEMFILE%@$gemfile@g' $taskfile"
-cmd4="sed -i -e 's@%RSPEC%@$rspec@g' $taskfile"
+cmd5="sed -i -e 's@%RSPEC%@$rspec@g' $taskfile"
 eval ${cmd1}
 eval ${cmd2}
 eval ${cmd3}
