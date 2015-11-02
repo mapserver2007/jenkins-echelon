@@ -1,4 +1,4 @@
 - name: get from repository
-  git: "repo=%REPOSITORY% version=%BRANCH% dest=/var/tmp update=yes accept_hostkey=yes"
+  git: "repo=%REPOSITORY% version=%BRANCH% dest=/var/tmp/%PROJECT% update=yes accept_hostkey=yes"
 - name: bundle install
   shell: bundle install chdir=/var/tmp/%PROJECT%/%GEMFILE%
