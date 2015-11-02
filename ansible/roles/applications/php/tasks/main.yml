@@ -1,5 +1,8 @@
 - name: copy ansible file
   tags: always
-  copy: src=ansible dest="{{ ansible_env.PWD }}"
+  copy: src={{ item }} dest="{{ ansible_env.PWD }}"
+  with_items:
+    - ansible
+    - build
 - include: php5.6/docker-run-provision.yml
   tags: php5.6
