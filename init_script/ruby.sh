@@ -1,6 +1,10 @@
 #!/bin/bash
 # usage:
 # $> sudo sh init.sh https://github.com/rankforce/infrastructure.git master ruby2.2
+# arg1: git repository uri
+# arg2: branch name
+# arg3: tag name
+# arg4:
 
 # ansible task
 taskfile="ansible/roles/applications/ruby/files/ansible/roles/settings/tasks/main.yml"
@@ -13,24 +17,24 @@ project=${filename%.*}
 # tag
 tag=$2
 
-# get gemfile path
-gemfile=""
+# get rspec path
+rspec="spec"
 if [ -n "$4" ]; then
-  gemfile=$4
+  rspec=$4
 fi
 
-# get rspec path
-rspec=""
+# get gemfile path
+gemfile=""
 if [ -n "$5" ]; then
-  rspec=$5
+  gemfile=$5
 fi
 
 # replace text
 cmd1="sed -i -e 's@%REPOSITORY%@$1@g' $taskfile"
 cmd2="sed -i -e 's@%BRANCH%@$tag@g' $taskfile"
 cmd3="sed -i -e 's@%PROJECT%@$project@g' $taskfile"
-cmd4="sed -i -e 's@%GEMFILE%@$gemfile@g' $taskfile"
-cmd5="sed -i -e 's@%RSPEC%@$rspec@g' $taskfile"
+cmd4="sed -i -e 's@%RSPEC%@$rspec@g' $taskfile"
+cmd5="sed -i -e 's@%GEMFILE%@$gemfile@g' $taskfile"
 eval ${cmd1}
 eval ${cmd2}
 eval ${cmd3}
