@@ -3,4 +3,6 @@
   connection: local
   roles:
     - middlewares/ruby
+    - middlewares/php
     - applications/ruby
+    - applications/php
