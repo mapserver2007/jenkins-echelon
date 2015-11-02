@@ -38,7 +38,7 @@ eval ${cmd3}
 eval ${cmd4}
 
 # build.xml
-cmd5="sed -i -e 's@PROJECT@$project@' /var/tmp/build.xml"
+cmd5="docker exec -t $tag sed -i -e 's@PROJECT@$project@' /var/tmp/build.xml"
 eval ${cmd5}
 
 # execte script
