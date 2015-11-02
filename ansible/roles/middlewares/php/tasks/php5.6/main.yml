@@ -3,6 +3,6 @@
   tags: php5.6
   sudo: yes
 - name: docker build
-  shell: docker build -t docker/php5.6 {{ ansible_env.PWD }}/roles/middlewares/ruby/files/Dockerfiles/php5.6/
+  shell: docker build -t docker/php5.6 {{ ansible_env.PWD }}/roles/middlewares/php/files/Dockerfiles/php5.6/
   tags: php5.6
   sudo: yes
