@@ -38,15 +38,15 @@ eval ${cmd2}
 eval ${cmd3}
 eval ${cmd4}
 
+# execte script
+eval ${ansible}
+
 # build.xml
 cmd5="docker exec -t $tag sed -i -e 's@%PROJECT%@$project@' /var/tmp/build.xml"
 eval ${cmd5}
 
-# execte script
-eval ${ansible}
-
 # run test and get test result
-runtest="docker exec -t $tag /var/tmp/$project/vendor/bin/phing -f /var/tmp/$project/build.xml"
+runtest="docker exec -t $tag /var/tmp/vendor/bin/phing -f /var/tmp/build.xml"
 dockercp="docker cp $tag:/var/tmp/$project/result.xml ."
 eval ${runtest}
 eval ${dockercp}
