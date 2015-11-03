@@ -4,6 +4,51 @@
   with_items:
     - ansible
     - build
+
+# PHP5.4
+- name: docker run (PHP5.4 application)
+  shell: docker run -itd --name php5.4 docker/php /sbin/init
+  tags: php5.4
+  sudo: yes
+- name: copy ansible files to container (PHP5.4 application)
+  shell: tar -cv * | sudo docker exec -i php5.4 tar x -C /root/ansible chdir=ansible
+  tags: php5.4
+  sudo: yes
+- name: copy test files to container (PHP5.4 application)
+  shell: tar -cv * | sudo docker exec -i php5.4 tar x -C /var/tmp chdir=build
+  tags: php5.4
+  sudo: yes
+- name: docker provision (PHP5.4 application with composer)
+  shell: docker exec -t php5.4 ansible-playbook -t with_composer -i "localhost," /root/ansible/settings.yml
+  tags: php5.4_with_composer
+  sudo: yes
+- name: docker provision (PHP5.4 application without composer)
+  shell: docker exec -t php5.4 ansible-playbook --skip-tags with_composer -i "localhost," /root/ansible/settings.yml
+  tags: php5.4_without_composer
+  sudo: yes
+
+# PHP5.5
+- name: docker run (PHP5.5 application)
+  shell: docker run -itd --name php5.5 docker/php /sbin/init
+  tags: php5.5
+  sudo: yes
+- name: copy ansible files to container (PHP5.5 application)
+  shell: tar -cv * | sudo docker exec -i php5.5 tar x -C /root/ansible chdir=ansible
+  tags: php5.5
+  sudo: yes
+- name: copy test files to container (PHP5.5 application)
+  shell: tar -cv * | sudo docker exec -i php5.5 tar x -C /var/tmp chdir=build
+  tags: php5.5
+  sudo: yes
+- name: docker provision (PHP5.5 application with composer)
+  shell: docker exec -t php5.5 ansible-playbook -t with_composer -i "localhost," /root/ansible/settings.yml
+  tags: php5.5_with_composer
+  sudo: yes
+- name: docker provision (PHP5.5 application without composer)
+  shell: docker exec -t php5.5 ansible-playbook --skip-tags with_composer -i "localhost," /root/ansible/settings.yml
+  tags: php5.5_without_composer
+  sudo: yes
+
 # PHP5.6
 - name: docker run (PHP5.6 application)
   shell: docker run -itd --name php5.6 docker/php /sbin/init

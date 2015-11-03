@@ -1,8 +1,0 @@
-- name: docker container clear
-  shell: docker ps -a | grep ruby2.0 | awk '{print $1}' | xargs --no-run-if-empty docker rm -f
-  tags: ruby2.0
-  sudo: yes
-- name: docker build
-  shell: docker build -t docker/ruby2.0 {{ ansible_env.PWD }}/roles/middlewares/ruby/files/Dockerfiles/ruby2.0/
-  tags: ruby2.0
-  sudo: yes

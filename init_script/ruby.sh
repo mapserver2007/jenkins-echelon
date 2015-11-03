@@ -1,6 +1,10 @@
 #!/bin/bash
 # usage:
+# Without Gemfile in user application test
 # $> sudo sh ruby.sh https://github.com/hoge/repository.git master ruby2.2
+# With Gemfile in user application test
+# $> sudo sh ruby.sh https://github.com/hoge/repository.git master ruby2.2 sample/ruby/spec sample/ruby
+#
 # arg1: git repository uri
 # arg2: branch name
 # arg3: tag name
@@ -51,7 +55,7 @@ eval ${cmd5}
 eval ${ansible}
 
 # run test and get test result
-runtest="docker exec -t $tag rspec /var/tmp/$project/$rspec --format RspecJunitFormatter --out /var/tmp/$project/result.xml"
+runtest="docker exec -t $tag bash -c 'cd /var/tmp/$project && rspec $rspec --format RspecJunitFormatter --out result.xml'"
 dockercp="docker cp $tag:/var/tmp/$project/result.xml ."
 eval ${runtest}
 eval ${dockercp}

@@ -1,6 +1,29 @@
-- include: ruby2.0/main.yml
+# Ruby2.0
+- name: docker container clear
+  shell: docker ps -a | grep ruby2.0 | awk '{print $1}' | xargs --no-run-if-empty docker rm -f
   tags: ruby2.0
-- include: ruby2.1/main.yml
+  sudo: yes
+- name: docker build
+  shell: docker build -t docker/ruby2.0 {{ ansible_env.PWD }}/roles/middlewares/ruby/files/Dockerfiles/ruby2.0/
+  tags: ruby2.0
+  sudo: yes
+
+# Ruby2.1
+- name: docker container clear
+  shell: docker ps -a | grep ruby2.1 | awk '{print $1}' | xargs --no-run-if-empty docker rm -f
   tags: ruby2.1
-- include: ruby2.2/main.yml
+  sudo: yes
+- name: docker build
+  shell: docker build -t docker/ruby2.1 {{ ansible_env.PWD }}/roles/middlewares/ruby/files/Dockerfiles/ruby2.1/
+  tags: ruby2.1
+  sudo: yes
+
+# Ruby2.2
+- name: docker container clear
+  shell: docker ps -a | grep ruby2.2 | awk '{print $1}' | xargs --no-run-if-empty docker rm -f
   tags: ruby2.2
+  sudo: yes
+- name: docker build
+  shell: docker build -t docker/ruby2.2 {{ ansible_env.PWD }}/roles/middlewares/ruby/files/Dockerfiles/ruby2.2/
+  tags: ruby2.2
+  sudo: yes

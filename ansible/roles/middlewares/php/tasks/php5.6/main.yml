@@ -1,6 +1,0 @@
-- name: docker container clear
-  shell: docker ps -a | grep php5.6 | awk '{print $1}' | xargs --no-run-if-empty docker rm -f
-  sudo: yes
-- name: docker build
-  shell: docker build -t docker/php5.6 {{ ansible_env.PWD }}/roles/middlewares/php/files/Dockerfiles/php5.6/
-  sudo: yes

@@ -1,11 +1,15 @@
 #!/bin/bash
 # usage:
+# Without composer.json in user application test
+# $> sudo sh php.sh https://github.com/mapserver2007/jenkins-echelon.git master php5.6
+# With composer.json in user application test
 # $> sudo sh php.sh https://github.com/mapserver2007/jenkins-echelon.git master php5.6 sample/php/test sample/php
+#
 # arg1: git repository uri
 # arg2: branch name
 # arg3: tag name
-# arg4: rspec directory path
-# arg5: Gemfile path
+# arg4: test directory path
+# arg5: composer.json directory path
 
 # ansible task file
 taskfile="ansible/roles/applications/php/files/ansible/roles/settings/tasks/main.yml"
@@ -51,7 +55,7 @@ cmd5="docker exec -t $tag sed -i -e 's@%PROJECT%@/var/tmp/$project/$testdir@' /v
 eval ${cmd5}
 
 # run test and get test result
-runtest="docker exec -t $tag /var/tmp/vendor/bin/phing -f /var/tmp/build.xml"
+runtest="docker exec -t $tag bash -c 'cd /var/tmp/ && vendor/bin/phing -f build.xml'"
 dockercp="docker cp $tag:/var/tmp/result.xml ."
 eval ${runtest}
 eval ${dockercp}
