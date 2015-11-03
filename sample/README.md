@@ -18,3 +18,30 @@ Jenkinsがインストールされているサーバに必要な環境を作る�
     * プロジェクトルートに`spec`ディレクトリがない場合、実行時にディレクトリパスを指定する必要がある
 
 ## 使い方
+シェルの実行で以下のコマンドを指定するとテストが実行される。  
+Jenkinsで実行したときはワークスペースに`result.xml`を出力するので、JUnitテスト結果の集計で指定する。
+
+### Ruby
+```sh
+sudo sh init_script/ruby.sh git://github.com/mapserver2007/jenkins-echelon.git master ruby2.2 sample/ruby/spec sample/ruby
+```
+
+* arg1: テスト対象リポジトリURI(必須)
+* arg2: ブランチ(必須)
+* arg3: 言語バージョン(必須)
+* arg4: テストディレクトリパス(プロジェクトルートからの相対パス)(任意)
+    * 省略時はプロジェクトルート直下のspecディレクトリを指定
+* arg5: Gemfileパス(任意)
+    * 省略時はbundle installを実行しない
+
+### PHP
+```sh
+sudo sh init_script/php.sh git://github.com/mapserver2007/jenkins-echelon.git master php5.6 sample/php/test sample/php
+```
+
+* arg1: テスト対象リポジトリURI(必須)
+* arg2: ブランチ(必須)
+* arg3: 言語バージョン(必須)
+* arg4: テストディレクトリパス(プロジェクトルートからの相対パス)(必須)
+* arg5: composer.jsonパス(任意)
+    * 省略時はcomposer installを実行しない
