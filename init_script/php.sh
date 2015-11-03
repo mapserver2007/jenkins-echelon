@@ -22,10 +22,10 @@ tag=$3
 composer=""
 ansible=""
 if [ -n "$4" ]; then
-  ansible="ansible-playbook -t $tag,with_composer -i 'localhost,' ansible/setup.yml"
+  ansible="ansible-playbook -t $tag,$tag_with_composer -i 'localhost,' ansible/setup.yml"
   composer=$4
 else
-  ansible="ansible-playbook -t $tag,without_composer -i 'localhost,' ansible/setup.yml"
+  ansible="ansible-playbook -t $tag,$tag_without_composer -i 'localhost,' ansible/setup.yml"
 fi
 
 # replace text
