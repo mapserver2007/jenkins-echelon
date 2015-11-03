@@ -22,6 +22,6 @@
   tags: with_composer
   sudo: yes
 - name: docker provision (PHP5.6 application without composer)
-  shell: docker exec -t php5.6 ansible-playbook -i "localhost," /root/ansible/settings.yml
+  shell: docker exec -t php5.6 ansible-playbook --skip-tags with_composer -i "localhost," /root/ansible/settings.yml
   tags: without_composer
   sudo: yes
