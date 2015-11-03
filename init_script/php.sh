@@ -1,6 +1,6 @@
 #!/bin/bash
 # usage:
-# $> sudo sh php.sh https://github.com/mapserver2007/jenkins-echelon.git master php5.6 sample/php
+# $> sudo sh php.sh https://github.com/mapserver2007/jenkins-echelon.git master php5.6 sample/php/test sample/php
 # arg1: git repository uri
 # arg2: branch name
 # arg3: tag name
@@ -20,12 +20,15 @@ tag=$3
 tag_wc=$3"_with_composer"
 tag_woc=$3"_without_composer"
 
+# test dir
+testdir=$4
+
 # get composer path
 composer=""
 ansible=""
-if [ -n "$4" ]; then
+if [ -n "$5" ]; then
   ansible="ansible-playbook -t $tag,$tag_wc -i 'localhost,' ansible/setup.yml"
-  composer=$4
+  composer=$5
 else
   ansible="ansible-playbook -t $tag,$tag_woc -i 'localhost,' ansible/setup.yml"
 fi
@@ -44,7 +47,7 @@ eval ${cmd4}
 eval ${ansible}
 
 # build.xml
-cmd5="docker exec -t $tag sed -i -e 's@%PROJECT%@/var/tmp/$project@' /var/tmp/build.xml"
+cmd5="docker exec -t $tag sed -i -e 's@%PROJECT%@/var/tmp/$project/$testdir@' /var/tmp/build.xml"
 eval ${cmd5}
 
 # run test and get test result
