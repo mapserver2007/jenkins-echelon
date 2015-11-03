@@ -42,7 +42,7 @@ eval ${cmd4}
 eval ${ansible}
 
 # build.xml
-cmd5="docker exec -t $tag sed -i -e 's@%PROJECT%@$project@' /var/tmp/build.xml"
+cmd5="docker exec -t $tag sed -i -e 's@%PROJECT%@/var/tmp/$project@' /var/tmp/build.xml"
 eval ${cmd5}
 
 # run test and get test result
