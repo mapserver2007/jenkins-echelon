@@ -47,6 +47,6 @@ eval ${cmd5}
 
 # run test and get test result
 runtest="docker exec -t $tag /var/tmp/vendor/bin/phing -f /var/tmp/build.xml"
-dockercp="docker cp $tag:/var/tmp/$project/result.xml ."
+dockercp="docker cp $tag:/var/tmp/result.xml ."
 eval ${runtest}
 eval ${dockercp}
