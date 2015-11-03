@@ -17,15 +17,17 @@ project=${filename%.*}
 
 # tag
 tag=$3
+tag_wc=$3"_with_composer"
+tag_woc=$3"_without_composer"
 
 # get composer path
 composer=""
 ansible=""
 if [ -n "$4" ]; then
-  ansible="ansible-playbook -t $tag,$tag_with_composer -i 'localhost,' ansible/setup.yml"
+  ansible="ansible-playbook -t $tag,$tag_wc -i 'localhost,' ansible/setup.yml"
   composer=$4
 else
-  ansible="ansible-playbook -t $tag,$tag_without_composer -i 'localhost,' ansible/setup.yml"
+  ansible="ansible-playbook -t $tag,$tag_woc -i 'localhost,' ansible/setup.yml"
 fi
 
 # replace text
