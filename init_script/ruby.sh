@@ -26,9 +26,14 @@ fi
 
 # get gemfile path
 gemfile=""
+ansible=""
 if [ -n "$5" ]; then
+  ansible="ansible-playbook -t $tag,with_gemfile -i 'localhost,' ansible/setup.yml"
   gemfile=$5
+else
+  ansible="ansible-playbook -t $tag,without_gemfile -i 'localhost,' ansible/setup.yml"
 fi
+
 
 # replace text
 cmd1="sed -i -e 's@%REPOSITORY%@$1@g' $taskfile"
@@ -43,7 +48,6 @@ eval ${cmd4}
 eval ${cmd5}
 
 # execte script
-ansible="ansible-playbook -t $tag -i 'localhost,' ansible/setup.yml"
 eval ${ansible}
 
 # run test and get test result

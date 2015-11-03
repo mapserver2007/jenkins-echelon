@@ -4,6 +4,7 @@
   with_items:
     - ansible
     - build
+# PHP5.6
 - name: docker run (PHP5.6 application)
   shell: docker run -itd --name php5.6 docker/php /sbin/init
   tags: php5.6

@@ -1,4 +1,6 @@
 - name: get from repository
+  tags: always
   git: "repo=%REPOSITORY% version=%BRANCH% dest=/var/tmp/%PROJECT% update=yes accept_hostkey=yes"
 - name: bundle install
+  tags: with_gemfile
   shell: bundle install chdir=/var/tmp/%PROJECT%/%GEMFILE%

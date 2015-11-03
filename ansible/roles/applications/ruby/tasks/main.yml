@@ -1,9 +1,57 @@
 - name: copy ansible file
   tags: always
   copy: src=ansible dest="{{ ansible_env.PWD }}"
-- include: ruby2.0/docker-run-provision.yml
-  tags: ruby2.0
-- include: ruby2.1/docker-run-provision.yml
-  tags: ruby2.1
-- include: ruby2.2/docker-run-provision.yml
-  tags: ruby2.2
+# Ruby2.2
+- name: docker run (Ruby2.2 application)
+  shell: docker run -itd --name ruby2.2 docker/ruby /sbin/init
+  sudo: yes
+- name: copy ansible files to container (Ruby2.2 application)
+  shell: tar -cv * | sudo docker exec -i ruby2.2 tar x -C /root/ansible chdir=ansible
+  sudo: yes
+- name: docker provision (Ruby2.2 application)
+  shell: docker exec -t ruby2.2 ansible-playbook -i "localhost," /root/ansible/settings.yml
+  sudo: yes
+- name: docker provision (Ruby2.2 application with Gemfile)
+  shell: docker exec -t ruby2.2 ansible-playbook -t with_genfile -i "localhost," /root/ansible/settings.yml
+  tags: with_genfile
+  sudo: yes
+- name: docker provision (Ruby2.2 application without Gemfile)
+  shell: docker exec -t ruby2.2 ansible-playbook -i "localhost," /root/ansible/settings.yml
+  tags: without_gemfile
+  sudo: yes
+# Ruby2.1
+- name: docker run (Ruby2.1 application)
+  shell: docker run -itd --name ruby2.1 docker/ruby /sbin/init
+  sudo: yes
+- name: copy ansible files to container (Ruby2.1 application)
+  shell: tar -cv * | sudo docker exec -i ruby2.1 tar x -C /root/ansible chdir=ansible
+  sudo: yes
+- name: docker provision (Ruby2.1 application)
+  shell: docker exec -t ruby2.1 ansible-playbook -i "localhost," /root/ansible/settings.yml
+  sudo: yes
+- name: docker provision (Ruby2.1 application with Gemfile)
+  shell: docker exec -t ruby2.1 ansible-playbook -t with_genfile -i "localhost," /root/ansible/settings.yml
+  tags: with_genfile
+  sudo: yes
+- name: docker provision (Ruby2.1 application without Gemfile)
+  shell: docker exec -t ruby2.1 ansible-playbook -i "localhost," /root/ansible/settings.yml
+  tags: without_gemfile
+  sudo: yes
+# Ruby2.0
+- name: docker run (Ruby2.0 application)
+  shell: docker run -itd --name ruby2.0 docker/ruby /sbin/init
+  sudo: yes
+- name: copy ansible files to container (Ruby2.0 application)
+  shell: tar -cv * | sudo docker exec -i ruby2.0 tar x -C /root/ansible chdir=ansible
+  sudo: yes
+- name: docker provision (Ruby2.0 application)
+  shell: docker exec -t ruby2.0 ansible-playbook -i "localhost," /root/ansible/settings.yml
+  sudo: yes
+- name: docker provision (Ruby2.0 application with Gemfile)
+  shell: docker exec -t ruby2.0 ansible-playbook -t with_genfile -i "localhost," /root/ansible/settings.yml
+  tags: with_genfile
+  sudo: yes
+- name: docker provision (Ruby2.0 application without Gemfile)
+  shell: docker exec -t ruby2.0 ansible-playbook -i "localhost," /root/ansible/settings.yml
+  tags: without_gemfile
+  sudo: yes
