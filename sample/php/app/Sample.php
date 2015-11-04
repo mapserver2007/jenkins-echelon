@@ -5,4 +5,9 @@ class Sample
     {
         return $n1 + $n2;
     }
+
+    public function getNameFromYaml()
+    {
+        // TODO
+    }
 }
