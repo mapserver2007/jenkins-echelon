@@ -3,9 +3,7 @@
 # $> sudo sh mv.sh config.yml sample/php/config/
 
 # ansible task file
-export WORKSPACE
-
-upload_dir="$WORKSPACE/ansible/roles/applications/php/files/upload/$2"
+upload_dir="ansible/roles/applications/php/files/upload/$2"
 mkdir="mkdir -p $upload_dir"
 cp="cp $upload_dir/$1"
 
