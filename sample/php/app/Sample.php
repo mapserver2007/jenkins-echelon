@@ -8,6 +8,8 @@ class Sample
 
     public function getNameFromYaml()
     {
-        // TODO
+        $secret = \Spyc::YAMLLoad("../config/secret.yml");
+
+        return $secret["key"];
     }
 }
