@@ -18,6 +18,6 @@ class SampleTest extends \PHPUnit_Framework_TestCase
     public function okTestSecretFromExternal()
     {
         $obj = new Sample();
-        $this->assertEqual($obj->getNameFromYaml(), "hogehoge");
+        $this->assertEquals($obj->getNameFromYaml(), "hogehoge");
     }
 }
