@@ -10,8 +10,7 @@ class Sample
 
     public function getNameFromYaml()
     {
-        $secret = \Spyc::YAMLLoad("../config/secret.yml");
-
+        $secret = \Spyc::YAMLLoad(dirname(__FILE__) . "/../config/secret.yml");
         return $secret["key"];
     }
 }
