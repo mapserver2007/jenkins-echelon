@@ -4,6 +4,7 @@
   with_items:
     - ansible
     - build
+    - upload
 
 # PHP5.4
 - name: docker run (PHP5.4 application)
