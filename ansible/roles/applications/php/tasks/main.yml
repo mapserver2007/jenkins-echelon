@@ -62,6 +62,10 @@
   shell: tar -cv * | sudo docker exec -i php5.6 tar x -C /var/tmp chdir=build
   tags: php5.6
   sudo: yes
+- name: copy secret files from external to container (PHP5.6 application)
+  shell: tar -cv * | sudo docker exec -i php5.6 tar x -C /var/tmp chdir=upload
+  tags: php5.6
+  sudo: yes
 - name: docker provision (PHP5.6 application with composer)
   shell: docker exec -t php5.6 ansible-playbook -t with_composer -i "localhost," /root/ansible/settings.yml
   tags: php5.6_with_composer
