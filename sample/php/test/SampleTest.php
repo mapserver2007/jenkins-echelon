@@ -12,6 +12,9 @@ class SampleTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($obj->add(1,2), 3);
     }
 
+    /**
+     * @test
+     */
     public function okTestSecretFromExternal()
     {
         $obj = new Sample();
