@@ -19,6 +19,10 @@
   shell: tar -cv * | sudo docker exec -i php5.4 tar x -C /var/tmp chdir=build
   tags: php5.4
   sudo: yes
+- name: copy secret files from external to container (PHP5.4 application)
+  shell: tar -cv * | sudo docker exec -i php5.4 tar x -C /var/tmp chdir=upload
+  tags: php5.4
+  sudo: yes
 - name: docker provision (PHP5.4 application with composer)
   shell: docker exec -t php5.4 ansible-playbook -t with_composer -i "localhost," /root/ansible/settings.yml
   tags: php5.4_with_composer
@@ -39,6 +43,10 @@
   sudo: yes
 - name: copy test files to container (PHP5.5 application)
   shell: tar -cv * | sudo docker exec -i php5.5 tar x -C /var/tmp chdir=build
+  tags: php5.5
+  sudo: yes
+- name: copy secret files from external to container (PHP5.5 application)
+  shell: tar -cv * | sudo docker exec -i php5.5 tar x -C /var/tmp chdir=upload
   tags: php5.5
   sudo: yes
 - name: docker provision (PHP5.5 application with composer)
