@@ -3,7 +3,7 @@
 # Without composer.json in user application test
 # $> sudo sh php.sh https://github.com/mapserver2007/jenkins-echelon.git master php5.6
 # With composer.json in user application test
-# $> sudo sh php.sh https://github.com/mapserver2007/jenkins-echelon.git master php5.6 sample/php/test sample/php
+# $> sudo sh php.sh https://github.com/mapserver2007/jenkins-echelon.git master php5.6 sample1/php/test sample1/php
 #
 # arg1: git repository uri
 # arg2: branch name

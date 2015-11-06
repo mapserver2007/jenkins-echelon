@@ -3,7 +3,7 @@
 # Without Gemfile in user application test
 # $> sudo sh ruby.sh https://github.com/hoge/repository.git master ruby2.2
 # With Gemfile in user application test
-# $> sudo sh ruby.sh https://github.com/hoge/repository.git master ruby2.2 sample/ruby/spec sample/ruby
+# $> sudo sh ruby.sh https://github.com/hoge/repository.git master ruby2.2 sample1/ruby/spec sample1/ruby
 #
 # arg1: git repository uri
 # arg2: branch name

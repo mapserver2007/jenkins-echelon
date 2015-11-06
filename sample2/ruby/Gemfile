@@ -1,0 +1,3 @@
+source 'https://rubygems.org'
+# Do not use it, but really set it for a check of the Gemfile installation
+gem 'json'
