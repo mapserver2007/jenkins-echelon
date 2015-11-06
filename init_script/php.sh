@@ -48,11 +48,18 @@ eval ${cmd3}
 eval ${cmd4}
 
 # execte script
-eval ${ansible}
+${ansible}
 
 # build.xml
 cmd5="docker exec -t $tag sed -i -e 's@%PROJECT%@/var/tmp/$project/$testdir@' /var/tmp/build.xml"
-eval ${cmd5}
+${cmd5}
+
+# secret files
+cmd6=`sudo docker exec -t $tag bash -c 'cd /var/tmp/ && ls | grep ^upload$'`
+if [ -n "${cmd6}" ]; then
+  cmd7="sudo docker exec -t $tag bash -c 'cd /var/tmp/upload && cp -rf * ../$project/'"
+  eval ${cmd7}
+fi
 
 # run test and get test result
 runtest="docker exec -t $tag bash -c 'cd /var/tmp/ && vendor/bin/phing -f build.xml'"
