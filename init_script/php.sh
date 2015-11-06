@@ -48,11 +48,11 @@ eval ${cmd3}
 eval ${cmd4}
 
 # execte script
-${ansible}
+eval ${ansible}
 
 # build.xml
 cmd5="docker exec -t $tag sed -i -e 's@%PROJECT%@/var/tmp/$project/$testdir@' /var/tmp/build.xml"
-${cmd5}
+eval ${cmd5}
 
 # secret files
 cmd6=`sudo docker exec -t $tag bash -c 'cd /var/tmp/ && ls | grep ^upload$'`
