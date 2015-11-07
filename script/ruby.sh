@@ -38,7 +38,6 @@ else
   ansible="ansible-playbook -t $tag,without_gemfile -i 'localhost,' ansible/setup.yml"
 fi
 
-
 # replace text
 cmd1="sed -i -e 's@%REPOSITORY%@$1@g' $taskfile"
 cmd2="sed -i -e 's@%BRANCH%@$2@g' $taskfile"
@@ -53,6 +52,13 @@ eval ${cmd5}
 
 # execte script
 eval ${ansible}
+
+# secret files
+cmd6=`docker exec -t $tag bash -c 'cd /var/tmp/ && ls | grep ^upload$'`
+if [ -n "${cmd6}" ]; then
+  cmd7="docker exec -t $tag bash -c 'cp -rf /var/tmp/upload/* /var/tmp/$project/'"
+  eval ${cmd7}
+fi
 
 # run test and get test result
 runtest="docker exec -t $tag bash -c 'cd /var/tmp/$project && rspec $rspec --format RspecJunitFormatter --out result.xml'"
