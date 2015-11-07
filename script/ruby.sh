@@ -21,8 +21,8 @@ project=${filename%.*}
 
 # tag
 tag=$3
-tag_wg=$3"_with_composer"
-tag_wog=$3"_without_composer"
+tag_wc=$3"_with_gemfile"
+tag_woc=$3"_without_gemfile"
 
 
 # get rspec path
