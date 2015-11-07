@@ -55,9 +55,9 @@ cmd5="docker exec -t $tag sed -i -e 's@%PROJECT%@/var/tmp/$project/$testdir@' /v
 eval ${cmd5}
 
 # secret files
-cmd6=`sudo docker exec -t $tag bash -c 'cd /var/tmp/ && ls | grep ^upload$'`
+cmd6=`docker exec -t $tag bash -c 'cd /var/tmp/ && ls | grep ^upload$'`
 if [ -n "${cmd6}" ]; then
-  cmd7="sudo docker exec -t $tag bash -c 'cd /var/tmp/upload && cp -rf * ../$project/'"
+  cmd7="docker exec -t $tag bash -c 'cp -rf /var/tmp/upload/* /var/tmp/$project/'"
   eval ${cmd7}
 fi
 
