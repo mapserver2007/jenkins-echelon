@@ -21,6 +21,9 @@ project=${filename%.*}
 
 # tag
 tag=$3
+tag_wg=$3"_with_composer"
+tag_wog=$3"_without_composer"
+
 
 # get rspec path
 rspec="spec"
@@ -32,10 +35,10 @@ fi
 gemfile=""
 ansible=""
 if [ -n "$5" ]; then
-  ansible="ansible-playbook -t $tag,with_gemfile -i 'localhost,' ansible/setup.yml"
+  ansible="ansible-playbook -t $tag,tag_wg -i 'localhost,' ansible/setup.yml"
   gemfile=$5
 else
-  ansible="ansible-playbook -t $tag,without_gemfile -i 'localhost,' ansible/setup.yml"
+  ansible="ansible-playbook -t $tag,tag_wog -i 'localhost,' ansible/setup.yml"
 fi
 
 # replace text
