@@ -27,7 +27,7 @@
   tags: ruby2.2_with_gemfile
   sudo: yes
 - name: docker provision (Ruby2.2 application without Gemfile)
-  shell: docker exec -t ruby2.2 ansible-playbook -i "localhost," /root/ansible/settings.yml
+  shell: docker exec -t ruby2.2 ansible-playbook --skip-tags with_gemfile -i "localhost," /root/ansible/settings.yml
   tags: ruby2.2_without_gemfile
   sudo: yes
 
@@ -53,7 +53,7 @@
   tags: ruby2.1_with_gemfile
   sudo: yes
 - name: docker provision (Ruby2.1 application without Gemfile)
-  shell: docker exec -t ruby2.1 ansible-playbook -i "localhost," /root/ansible/settings.yml
+  shell: docker exec -t ruby2.1 ansible-playbook --skip-tags with_gemfile -i "localhost," /root/ansible/settings.yml
   tags: ruby2.1_without_gemfile
   sudo: yes
 
@@ -79,6 +79,6 @@
   tags: ruby2.0_with_gemfile
   sudo: yes
 - name: docker provision (Ruby2.0 application without Gemfile)
-  shell: docker exec -t ruby2.0 ansible-playbook -i "localhost," /root/ansible/settings.yml
+  shell: docker exec -t ruby2.0 ansible-playbook --skip-tags with_gemfile -i "localhost," /root/ansible/settings.yml
   tags: ruby2.0_without_gemfile
   sudo: yes
