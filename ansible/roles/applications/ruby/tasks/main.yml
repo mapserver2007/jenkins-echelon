@@ -1,5 +1,5 @@
 - name: copy ansible file
-  tags: always
+  tags: ruby
   copy: src={{ item }} dest="{{ ansible_env.PWD }}"
   with_items:
     - ansible

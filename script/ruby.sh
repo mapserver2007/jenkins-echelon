@@ -35,10 +35,10 @@ fi
 gemfile=""
 ansible=""
 if [ -n "$5" ]; then
-  ansible="ansible-playbook -t $tag,$tag_wg -i 'localhost,' ansible/setup.yml"
+  ansible="ansible-playbook -t $tag,$tag_wg,ruby -i 'localhost,' ansible/setup.yml"
   gemfile=$5
 else
-  ansible="ansible-playbook -t $tag,$tag_wog -i 'localhost,' ansible/setup.yml"
+  ansible="ansible-playbook -t $tag,$tag_wog,ruby -i 'localhost,' ansible/setup.yml"
 fi
 
 # replace text

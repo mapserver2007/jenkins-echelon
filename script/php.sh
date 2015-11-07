@@ -31,10 +31,10 @@ testdir=$4
 composer=""
 ansible=""
 if [ -n "$5" ]; then
-  ansible="ansible-playbook -t $tag,$tag_wc -i 'localhost,' ansible/setup.yml"
+  ansible="ansible-playbook -t $tag,$tag_wc,php -i 'localhost,' ansible/setup.yml"
   composer=$5
 else
-  ansible="ansible-playbook -t $tag,$tag_woc -i 'localhost,' ansible/setup.yml"
+  ansible="ansible-playbook -t $tag,$tag_woc,php -i 'localhost,' ansible/setup.yml"
 fi
 
 # replace text
