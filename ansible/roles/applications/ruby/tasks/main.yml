@@ -24,37 +24,37 @@
   sudo: yes
 - name: docker provision (Ruby2.2 application with Gemfile)
   shell: docker exec -t ruby2.2 ansible-playbook -t with_gemfile -i "localhost," /root/ansible/settings.yml
-  tags: with_gemfile
+  tags: ruby2.2_with_gemfile
   sudo: yes
 - name: docker provision (Ruby2.2 application without Gemfile)
   shell: docker exec -t ruby2.2 ansible-playbook -i "localhost," /root/ansible/settings.yml
-  tags: without_gemfile
+  tags: ruby2.2_without_gemfile
   sudo: yes
 
 # Ruby2.1
 - name: docker run (Ruby2.1 application)
   shell: docker run -itd --name ruby2.1 docker/ruby /sbin/init
-  tags: ruby2.2
+  tags: ruby2.1
   sudo: yes
 - name: copy ansible files to container (Ruby2.1 application)
   shell: tar -cv * | sudo docker exec -i ruby2.1 tar x -C /root/ansible chdir=ansible
-  tags: ruby2.2
+  tags: ruby2.1
   sudo: yes
 - name: docker provision (Ruby2.1 application)
   shell: docker exec -t ruby2.1 ansible-playbook -i "localhost," /root/ansible/settings.yml
-  tags: ruby2.2
+  tags: ruby2.1
   sudo: yes
 - name: copy secret files from external to container (Ruby2.1 application)
   shell: tar -cv * | sudo docker exec -i ruby2.1 tar x -C /var/tmp chdir=upload
-  tags: ruby2.2
+  tags: ruby2.1
   sudo: yes
 - name: docker provision (Ruby2.1 application with Gemfile)
   shell: docker exec -t ruby2.1 ansible-playbook -t with_gemfile -i "localhost," /root/ansible/settings.yml
-  tags: with_gemfile
+  tags: ruby2.1_with_gemfile
   sudo: yes
 - name: docker provision (Ruby2.1 application without Gemfile)
   shell: docker exec -t ruby2.1 ansible-playbook -i "localhost," /root/ansible/settings.yml
-  tags: without_gemfile
+  tags: ruby2.1_without_gemfile
   sudo: yes
 
 # Ruby2.0
@@ -76,9 +76,9 @@
   sudo: yes
 - name: docker provision (Ruby2.0 application with Gemfile)
   shell: docker exec -t ruby2.0 ansible-playbook -t with_gemfile -i "localhost," /root/ansible/settings.yml
-  tags: with_gemfile
+  tags: ruby2.0_with_gemfile
   sudo: yes
 - name: docker provision (Ruby2.0 application without Gemfile)
   shell: docker exec -t ruby2.0 ansible-playbook -i "localhost," /root/ansible/settings.yml
-  tags: without_gemfile
+  tags: ruby2.0_without_gemfile
   sudo: yes
