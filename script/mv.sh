@@ -6,9 +6,13 @@
 langs=("php" "ruby")
 for lang in ${langs[@]}; do
   upload_dir="ansible/roles/applications/$lang/files/upload/upload/$2"
-  mkdir="mkdir -p $upload_dir"
-  mv="mv $1 $upload_dir/$1"
+  if [ ${upload_dir: -1} -ne '/' ]; then
+    upload_dir="${upload_dir}/"
+  fi
 
-  # eval ${mkdir}
-  # eval ${mv}
+  mkdir="mkdir -p $upload_dir"
+  mv="cp -f $1 ${upload_dir}$1"
+
+  eval ${mkdir}
+  eval ${mv}
 done
