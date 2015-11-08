@@ -9,6 +9,6 @@ for lang in ${langs[@]}; do
   mkdir="mkdir -p $upload_dir"
   mv="mv $1 $upload_dir/$1"
 
-  eval ${mkdir}
-  eval ${mv}
+  # eval ${mkdir}
+  # eval ${mv}
 done
