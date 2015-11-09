@@ -11,9 +11,10 @@
 # arg4: test directory path
 # arg5: composer.json directory path
 
-# remove unused playbook
-remove="rm -rf ansible/roles/applications/ruby"
-eval ${remove}
+# set language setup
+taskfile_setup="ansible/setup.yml"
+cmd_setup="sed -i -e 's@%LANG%@php@g' $taskfile_setup"
+eval ${cmd_setup}
 
 # container prefix
 prefix=`cat /dev/urandom | tr -dc 'a-z' | fold -w 4 | head -n 1`

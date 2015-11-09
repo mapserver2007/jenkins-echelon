@@ -2,7 +2,5 @@
 - hosts: localhost
   connection: local
   roles:
-    - middlewares/ruby
-    - middlewares/php
-    - applications/ruby
-    - applications/php
+    - middlewares/%LANG%
+    - applications/%LANG%
