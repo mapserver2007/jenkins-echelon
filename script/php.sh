@@ -60,7 +60,7 @@ container_name=${prefix}_${tag}
 
 # build.xml
 cmd1="docker exec -t ${container_name} sed -i -e 's@%PROJECT%@/var/tmp/$project/$testdir@' /var/tmp/build.xml"
-eval ${cmd}
+eval ${cmd1}
 
 # secret files
 cmd2=`docker exec -t ${container_name} bash -c 'cd /var/tmp/ && ls | grep ^upload$'`
