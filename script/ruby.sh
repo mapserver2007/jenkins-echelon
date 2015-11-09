@@ -11,6 +11,10 @@
 # arg4: rspec directory path
 # arg5: Gemfile path
 
+# remove unused playbook
+remove="rm -rf ansible/roles/applications/php"
+eval ${remove}
+
 # container prefix
 prefix=`cat /dev/urandom | tr -dc 'a-z' | fold -w 4 | head -n 1`
 
