@@ -38,27 +38,29 @@ else
 fi
 
 # replace text
-cmd1="sed -i -e 's@%REPOSITORY%@$1@g' $taskfile"
-cmd2="sed -i -e 's@%BRANCH%@$2@g' $taskfile"
-cmd3="sed -i -e 's@%PROJECT%@$project@g' $taskfile"
-cmd4="sed -i -e 's@%COMPOSER%@$composer@g' $taskfile"
-eval ${cmd1}
-eval ${cmd2}
-eval ${cmd3}
-eval ${cmd4}
+cmd_list=()
+cmd_list[0]="sed -i -e 's@%APPLICATION%@hoge@g' $taskfile"
+cmd_list[1]="sed -i -e 's@%TAG%@$tag@g' $taskfile"
+cmd_list[2]="sed -i -e 's@%REPOSITORY%@$1@g' $taskfile"
+cmd_list[3]="sed -i -e 's@%BRANCH%@$2@g' $taskfile"
+cmd_list[4]="sed -i -e 's@%PROJECT%@$project@g' $taskfile"
+cmd_list[5]="sed -i -e 's@%COMPOSER%@$composer@g' $taskfile"
+for cmd in ${cmd_list[@]}; do
+  eval ${cmd}
+done
 
 # execte script
 eval ${ansible}
 
 # build.xml
-cmd5="docker exec -t $tag sed -i -e 's@%PROJECT%@/var/tmp/$project/$testdir@' /var/tmp/build.xml"
-eval ${cmd5}
+cmd1="docker exec -t $tag sed -i -e 's@%PROJECT%@/var/tmp/$project/$testdir@' /var/tmp/build.xml"
+eval ${cmd}
 
 # secret files
-cmd6=`docker exec -t $tag bash -c 'cd /var/tmp/ && ls | grep ^upload$'`
-if [ -n "${cmd6}" ]; then
-  cmd7="docker exec -t $tag bash -c 'cp -rf /var/tmp/upload/* /var/tmp/$project/'"
-  eval ${cmd7}
+cmd2=`docker exec -t $tag bash -c 'cd /var/tmp/ && ls | grep ^upload$'`
+if [ -n "${cmd2}" ]; then
+  cmd3="docker exec -t $tag bash -c 'cp -rf /var/tmp/upload/* /var/tmp/$project/'"
+  eval ${cmd3}
 fi
 
 # run test and get test result
