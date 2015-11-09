@@ -11,8 +11,12 @@
 # arg4: rspec directory path
 # arg5: Gemfile path
 
+# container prefix
+prefix=`cat /dev/urandom | tr -dc 'a-z' | fold -w 4 | head -n 1`
+
 # ansible task
-taskfile="ansible/roles/applications/ruby/files/ansible/roles/settings/tasks/main.yml"
+taskfile_local="ansible/roles/applications/ruby/tasks/main.yml"
+taskfile_docker="ansible/roles/applications/ruby/files/ansible/roles/settings/tasks/main.yml"
 
 # get project name
 git_uri="$1"
@@ -42,25 +46,25 @@ else
 fi
 
 # replace text
-cmd1="sed -i -e 's@%REPOSITORY%@$1@g' $taskfile"
-cmd2="sed -i -e 's@%BRANCH%@$2@g' $taskfile"
-cmd3="sed -i -e 's@%PROJECT%@$project@g' $taskfile"
-cmd4="sed -i -e 's@%RSPEC%@$rspec@g' $taskfile"
-cmd5="sed -i -e 's@%GEMFILE%@$gemfile@g' $taskfile"
-eval ${cmd1}
-eval ${cmd2}
-eval ${cmd3}
-eval ${cmd4}
-eval ${cmd5}
+cmd_list=()
+cmd_list[0]="sed -i -e 's@%APPLICATION%@$prefix@g' $taskfile_local"
+cmd_list[1]="sed -i -e 's@%TAG%@$tag@g' $taskfile_local"
+cmd_list[2]="sed -i -e 's@%REPOSITORY%@$1@g' $taskfile_docker"
+cmd_list[3]="sed -i -e 's@%BRANCH%@$2@g' $taskfile_docker"
+cmd_list[4]="sed -i -e 's@%PROJECT%@$project@g' $taskfile_docker"
+cmd_list[5]="sed -i -e 's@%RSPEC%@$rspec@g' $taskfile_docker"
+cmd_list[6]="sed -i -e 's@%GEMFILE%@$gemfile@g' $taskfile_docker"
+for cmd in "${cmd_list[@]}"; do
+  eval ${cmd}
+done
 
-# execte script
 eval ${ansible}
 
 # secret files
-cmd6=`docker exec -t $tag bash -c 'cd /var/tmp/ && ls | grep ^upload$'`
+cmd1=`docker exec -t $tag bash -c 'cd /var/tmp/ && ls | grep ^upload$'`
 if [ -n "${cmd6}" ]; then
-  cmd7="docker exec -t $tag bash -c 'cp -rf /var/tmp/upload/* /var/tmp/$project/'"
-  eval ${cmd7}
+  cmd2="docker exec -t $tag bash -c 'cp -rf /var/tmp/upload/* /var/tmp/$project/'"
+  eval ${cmd2}
 fi
 
 # run test and get test result
