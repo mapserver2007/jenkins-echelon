@@ -12,7 +12,8 @@
 # arg5: composer.json directory path
 
 # ansible task file
-taskfile="ansible/roles/applications/php/files/ansible/roles/settings/tasks/main.yml"
+taskfile_local="ansible/roles/applications/php/tasks/main.yml"
+taskfile_docker="ansible/roles/applications/php/files/ansible/roles/settings/tasks/main.yml"
 
 # get project name
 git_uri="$1"
@@ -39,13 +40,13 @@ fi
 
 # replace text
 cmd_list=()
-cmd_list[0]="sed -i -e 's@%APPLICATION%@hoge@g' $taskfile"
-cmd_list[1]="sed -i -e 's@%TAG%@$tag@g' $taskfile"
-cmd_list[2]="sed -i -e 's@%REPOSITORY%@$1@g' $taskfile"
-cmd_list[3]="sed -i -e 's@%BRANCH%@$2@g' $taskfile"
-cmd_list[4]="sed -i -e 's@%PROJECT%@$project@g' $taskfile"
-cmd_list[5]="sed -i -e 's@%COMPOSER%@$composer@g' $taskfile"
-for cmd in ${cmd_list[@]}; do
+cmd_list[0]="sed -i -e 's@%APPLICATION%@hoge@g' $taskfile_local"
+cmd_list[1]="sed -i -e 's@%TAG%@$tag@g' $taskfile_local"
+cmd_list[2]="sed -i -e 's@%REPOSITORY%@$1@g' $taskfile_docker"
+cmd_list[3]="sed -i -e 's@%BRANCH%@$2@g' $taskfile_docker"
+cmd_list[4]="sed -i -e 's@%PROJECT%@$project@g' $taskfile_docker"
+cmd_list[5]="sed -i -e 's@%COMPOSER%@$composer@g' $taskfile_docker"
+for cmd in "${cmd_list[@]}"; do
   eval ${cmd}
 done
 
