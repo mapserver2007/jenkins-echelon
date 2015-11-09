@@ -56,7 +56,7 @@ done
 # execte script
 eval ${ansible}
 
-container_name=${prefix}${tag}
+container_name=${prefix}_${tag}
 
 # build.xml
 cmd1="docker exec -t ${container_name} sed -i -e 's@%PROJECT%@/var/tmp/$project/$testdir@' /var/tmp/build.xml"
