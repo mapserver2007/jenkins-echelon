@@ -63,17 +63,20 @@ for cmd in "${cmd_list[@]}"; do
   eval ${cmd}
 done
 
+# execte ansible
 eval ${ansible}
 
+container_name=${prefix}_${tag}
+
 # secret files
-cmd1=`docker exec -t $tag bash -c 'cd /var/tmp/ && ls | grep ^upload$'`
+cmd1=`docker exec -t ${container_name} bash -c 'cd /var/tmp/ && ls | grep ^upload$'`
 if [ -n "${cmd1}" ]; then
-  cmd2="docker exec -t $tag bash -c 'cp -rf /var/tmp/upload/* /var/tmp/$project/'"
+  cmd2="docker exec -t ${container_name} bash -c 'cp -rf /var/tmp/upload/* /var/tmp/$project/'"
   eval ${cmd2}
 fi
 
 # run test and get test result
-runtest="docker exec -t $tag bash -c 'cd /var/tmp/$project && rspec $rspec --format RspecJunitFormatter --out result.xml'"
-dockercp="docker cp $tag:/var/tmp/$project/result.xml ."
+runtest="docker exec -t ${container_name} bash -c 'cd /var/tmp/$project && rspec $rspec --format RspecJunitFormatter --out result.xml'"
+dockercp="docker cp ${container_name}:/var/tmp/$project/result.xml ."
 eval ${runtest}
 eval ${dockercp}

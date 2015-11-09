@@ -58,7 +58,7 @@ for cmd in "${cmd_list[@]}"; do
   eval ${cmd}
 done
 
-# execte script
+# execte ansible
 eval ${ansible}
 
 container_name=${prefix}_${tag}
