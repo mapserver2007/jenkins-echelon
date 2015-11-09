@@ -67,7 +67,7 @@ eval ${ansible}
 
 # secret files
 cmd1=`docker exec -t $tag bash -c 'cd /var/tmp/ && ls | grep ^upload$'`
-if [ -n "${cmd6}" ]; then
+if [ -n "${cmd1}" ]; then
   cmd2="docker exec -t $tag bash -c 'cp -rf /var/tmp/upload/* /var/tmp/$project/'"
   eval ${cmd2}
 fi
