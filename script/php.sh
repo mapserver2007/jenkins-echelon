@@ -11,6 +11,9 @@
 # arg4: test directory path
 # arg5: composer.json directory path
 
+# container prefix
+prefix=`cat /dev/urandom | tr -dc 'a-z' | fold -w 4 | head -n 1`
+
 # ansible task file
 taskfile_local="ansible/roles/applications/php/tasks/main.yml"
 taskfile_docker="ansible/roles/applications/php/files/ansible/roles/settings/tasks/main.yml"
@@ -40,7 +43,7 @@ fi
 
 # replace text
 cmd_list=()
-cmd_list[0]="sed -i -e 's@%APPLICATION%@hoge@g' $taskfile_local"
+cmd_list[0]="sed -i -e 's@%APPLICATION%@$prefix@g' $taskfile_local"
 cmd_list[1]="sed -i -e 's@%TAG%@$tag@g' $taskfile_local"
 cmd_list[2]="sed -i -e 's@%REPOSITORY%@$1@g' $taskfile_docker"
 cmd_list[3]="sed -i -e 's@%BRANCH%@$2@g' $taskfile_docker"
@@ -53,19 +56,21 @@ done
 # execte script
 eval ${ansible}
 
+container_name=${prefix}${tag}
+
 # build.xml
-cmd1="docker exec -t $tag sed -i -e 's@%PROJECT%@/var/tmp/$project/$testdir@' /var/tmp/build.xml"
+cmd1="docker exec -t ${container_name} sed -i -e 's@%PROJECT%@/var/tmp/$project/$testdir@' /var/tmp/build.xml"
 eval ${cmd}
 
 # secret files
-cmd2=`docker exec -t $tag bash -c 'cd /var/tmp/ && ls | grep ^upload$'`
+cmd2=`docker exec -t ${container_name} bash -c 'cd /var/tmp/ && ls | grep ^upload$'`
 if [ -n "${cmd2}" ]; then
-  cmd3="docker exec -t $tag bash -c 'cp -rf /var/tmp/upload/* /var/tmp/$project/'"
+  cmd3="docker exec -t ${container_name} bash -c 'cp -rf /var/tmp/upload/* /var/tmp/$project/'"
   eval ${cmd3}
 fi
 
 # run test and get test result
-runtest="docker exec -t $tag bash -c 'cd /var/tmp/ && vendor/bin/phing -f build.xml'"
-dockercp="docker cp $tag:/var/tmp/result.xml ."
+runtest="docker exec -t ${container_name} bash -c 'cd /var/tmp/ && vendor/bin/phing -f build.xml'"
+dockercp="docker cp ${container_name}:/var/tmp/result.xml ."
 eval ${runtest}
 eval ${dockercp}
