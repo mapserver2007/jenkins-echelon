@@ -1,4 +1,4 @@
 - name: docker build
   tags: %TAG%
-  shell: docker build -t docker/%TAG% {{ ansible_env.PWD }}/roles/middlewares/php/files/Dockerfiles/%TAG%/
+  shell: docker build -t docker/php {{ ansible_env.PWD }}/roles/middlewares/php/files/Dockerfiles/%TAG%/
   sudo: yes
