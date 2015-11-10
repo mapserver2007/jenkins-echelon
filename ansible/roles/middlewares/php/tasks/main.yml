@@ -1,29 +1,8 @@
-# PHP5.4
 - name: docker container clear
-  tags: php5.4
-  shell: docker ps -a | grep php5.5 | awk '{print $1}' | xargs --no-run-if-empty docker rm -f
+  tags: %TAG%
+  shell: docker ps -a | grep %TAG% | awk '{print $1}' | xargs --no-run-if-empty docker rm -f
   sudo: yes
 - name: docker build
-  tags: php5.4
-  shell: docker build -t docker/php5.4 {{ ansible_env.PWD }}/roles/middlewares/php/files/Dockerfiles/php5.4/
-  sudo: yes
-
-# PHP5.5
-- name: docker container clear
-  tags: php5.5
-  shell: docker ps -a | grep php5.5 | awk '{print $1}' | xargs --no-run-if-empty docker rm -f
-  sudo: yes
-- name: docker build
-  tags: php5.5
-  shell: docker build -t docker/php5.5 {{ ansible_env.PWD }}/roles/middlewares/php/files/Dockerfiles/php5.5/
-  sudo: yes
-
-# PHP5.6
-- name: docker container clear
-  tags: php5.6
-  shell: docker ps -a | grep php5.6 | awk '{print $1}' | xargs --no-run-if-empty docker rm -f
-  sudo: yes
-- name: docker build
-  tags: php5.6
-  shell: docker build -t docker/php5.6 {{ ansible_env.PWD }}/roles/middlewares/php/files/Dockerfiles/php5.6/
+  tags: %TAG%
+  shell: docker build -t docker/%TAG% {{ ansible_env.PWD }}/roles/middlewares/php/files/Dockerfiles/%TAG%/
   sudo: yes
