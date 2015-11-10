@@ -1,4 +1,4 @@
 - name: docker build
-  shell: docker build -t docker/ruby {{ ansible_env.PWD }}/roles/middlewares/ruby/files/Dockerfiles/%TAG%/
+  shell: docker build -t docker/ruby {{ ansible_env.PWD }}/roles/setup/middlewares/ruby/files/Dockerfiles/%TAG%/
   tags: %TAG%
   sudo: yes
