@@ -2,6 +2,5 @@
 - hosts: localhost
   connection: local
   roles:
-    - middlewares/%LANG%
-    - applications/%LANG%
-    - applications/common
+    - setup/middlewares/%LANG%
+    - setup/applications/%LANG%

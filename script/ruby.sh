@@ -25,11 +25,11 @@ tag=$3
 # container
 container_name=${prefix}_${tag}
 
-# ansible task
-taskfile_all_application_local="ansible/roles/applications/common/tasks/main.yml"
-taskfile_application_local="ansible/roles/applications/ruby/tasks/main.yml"
-taskfile_middleware_local="ansible/roles/middlewares/ruby/tasks/main.yml"
-taskfile_docker="ansible/roles/applications/ruby/files/ansible/roles/settings/tasks/main.yml"
+# ansible task file
+taskfile_setup_application="ansible/roles/setup/applications/ruby/tasks/main.yml"
+taskfile_setup_middleware="ansible/roles/setup/middlewares/ruby/tasks/main.yml"
+taskfile_cleanup="ansible/roles/cleanup/tasks/main.yml"
+taskfile_docker="ansible/roles/setup/applications/ruby/files/ansible/roles/settings/tasks/main.yml"
 
 # get project name
 git_uri="$1"
@@ -48,21 +48,21 @@ fi
 
 # get gemfile path
 gemfile=""
-ansible=""
+ansible_setup=""
 if [ -n "$5" ]; then
-  ansible="ansible-playbook -t $tag,$tag_wg,ruby -i 'localhost,' ansible/setup.yml"
+  ansible_setup="ansible-playbook -t $tag,$tag_wg,ruby -i 'localhost,' ansible/setup.yml"
   gemfile=$5
 else
-  ansible="ansible-playbook -t $tag,$tag_wog,ruby -i 'localhost,' ansible/setup.yml"
+  ansible_setup="ansible-playbook -t $tag,$tag_wog,ruby -i 'localhost,' ansible/setup.yml"
 fi
 
 # replace text
 cmd_list=()
-cmd_list[0]="sed -i -e 's@%APPLICATION%@$prefix@g' $taskfile_application_local"
-cmd_list[1]="sed -i -e 's@%TAG%@$tag@g' $taskfile_application_local"
-cmd_list[2]="sed -i -e 's@%TAG%@$tag@g' $taskfile_middleware_local"
-cmd_list[3]="sed -i -e 's@%APPLICATION%@$prefix@g' $taskfile_all_application_local"
-cmd_list[4]="sed -i -e 's@%TAG%@$tag@g' $taskfile_all_application_local"
+cmd_list[0]="sed -i -e 's@%APPLICATION%@$prefix@g' $taskfile_setup_application"
+cmd_list[1]="sed -i -e 's@%TAG%@$tag@g' $taskfile_setup_application"
+cmd_list[2]="sed -i -e 's@%TAG%@$tag@g' $taskfile_setup_middleware"
+cmd_list[3]="sed -i -e 's@%APPLICATION%@$prefix@g' $taskfile_cleanup"
+cmd_list[4]="sed -i -e 's@%TAG%@$tag@g' $taskfile_cleanup"
 cmd_list[5]="sed -i -e 's@%REPOSITORY%@$1@g' $taskfile_docker"
 cmd_list[6]="sed -i -e 's@%BRANCH%@$2@g' $taskfile_docker"
 cmd_list[7]="sed -i -e 's@%PROJECT%@$project@g' $taskfile_docker"
@@ -72,8 +72,8 @@ for cmd in "${cmd_list[@]}"; do
   eval ${cmd}
 done
 
-# execte ansible
-eval ${ansible}
+# execte ansible setup
+eval ${ansible_setup}
 
 # secret files
 cmd1=`docker exec -t ${container_name} bash -c 'cd /var/tmp/ && ls | grep ^upload$'`
@@ -87,3 +87,7 @@ runtest="docker exec -t ${container_name} bash -c 'cd /var/tmp/$project && rspec
 dockercp="docker cp ${container_name}:/var/tmp/$project/result.xml ."
 eval ${runtest}
 eval ${dockercp}
+
+# execte ansible cleanup
+ansible_cleanup="ansible-playbook -t ${container_name} -i 'localhost,' ansible/cleanup.yml"
+eval ${ansible_cleanup}
