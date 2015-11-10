@@ -12,8 +12,8 @@
 # arg5: Gemfile path
 
 # set language setup
-taskfile_setup="ansible/setup.yml"
-cmd_setup="sed -i -e 's@%LANG%@ruby@g' $taskfile_setup"
+taskfile_entrypoint="ansible/setup.yml"
+cmd_setup="sed -i -e 's@%LANG%@ruby@g' $taskfile_entrypoint"
 eval ${cmd_setup}
 
 # container prefix
