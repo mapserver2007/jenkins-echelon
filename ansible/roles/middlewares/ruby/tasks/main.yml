@@ -1,7 +1,3 @@
-- name: docker container clear
-  shell: docker ps -a | grep %TAG% | awk '{print $1}' | xargs --no-run-if-empty docker rm -f
-  tags: %TAG%
-  sudo: yes
 - name: docker build
   shell: docker build -t docker/%TAG% {{ ansible_env.PWD }}/roles/middlewares/ruby/files/Dockerfiles/%TAG%/
   tags: %TAG%

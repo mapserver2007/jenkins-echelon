@@ -4,3 +4,4 @@
   roles:
     - middlewares/%LANG%
     - applications/%LANG%
+    - applications/common

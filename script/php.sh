@@ -19,7 +19,14 @@ eval ${cmd_setup}
 # container prefix
 prefix=`cat /dev/urandom | tr -dc 'a-z' | fold -w 4 | head -n 1`
 
+# tag
+tag=$3
+
+# container
+container_name=${prefix}_${tag}
+
 # ansible task file
+taskfile_all_application_local="ansible/roles/applications/common/tasks/main.yml"
 taskfile_application_local="ansible/roles/applications/php/tasks/main.yml"
 taskfile_middleware_local="ansible/roles/middlewares/php/tasks/main.yml"
 taskfile_docker="ansible/roles/applications/php/files/ansible/roles/settings/tasks/main.yml"
@@ -29,8 +36,7 @@ git_uri="$1"
 filename=${git_uri##*/}
 project=${filename%.*}
 
-# tag
-tag=$3
+# tag with/without composer
 tag_wc=$3"_with_composer"
 tag_woc=$3"_without_composer"
 
@@ -52,18 +58,18 @@ cmd_list=()
 cmd_list[0]="sed -i -e 's@%APPLICATION%@$prefix@g' $taskfile_application_local"
 cmd_list[1]="sed -i -e 's@%TAG%@$tag@g' $taskfile_application_local"
 cmd_list[2]="sed -i -e 's@%TAG%@$tag@g' $taskfile_middleware_local"
-cmd_list[3]="sed -i -e 's@%REPOSITORY%@$1@g' $taskfile_docker"
-cmd_list[4]="sed -i -e 's@%BRANCH%@$2@g' $taskfile_docker"
-cmd_list[5]="sed -i -e 's@%PROJECT%@$project@g' $taskfile_docker"
-cmd_list[6]="sed -i -e 's@%COMPOSER%@$composer@g' $taskfile_docker"
+cmd_list[3]="sed -i -e 's@%APPLICATION%@$prefix@g' $taskfile_all_application_local"
+cmd_list[4]="sed -i -e 's@%TAG%@$tag@g' $taskfile_all_application_local"
+cmd_list[5]="sed -i -e 's@%REPOSITORY%@$1@g' $taskfile_docker"
+cmd_list[6]="sed -i -e 's@%BRANCH%@$2@g' $taskfile_docker"
+cmd_list[7]="sed -i -e 's@%PROJECT%@$project@g' $taskfile_docker"
+cmd_list[8]="sed -i -e 's@%COMPOSER%@$composer@g' $taskfile_docker"
 for cmd in "${cmd_list[@]}"; do
   eval ${cmd}
 done
 
 # execte ansible
 eval ${ansible}
-
-container_name=${prefix}_${tag}
 
 # build.xml
 cmd1="docker exec -t ${container_name} sed -i -e 's@%PROJECT%@/var/tmp/$project/$testdir@' /var/tmp/build.xml"
