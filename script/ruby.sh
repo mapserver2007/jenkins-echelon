@@ -62,12 +62,11 @@ cmd_list[0]="sed -i -e 's@%APPLICATION%@$prefix@g' $taskfile_setup_application"
 cmd_list[1]="sed -i -e 's@%TAG%@$tag@g' $taskfile_setup_application"
 cmd_list[2]="sed -i -e 's@%TAG%@$tag@g' $taskfile_setup_middleware"
 cmd_list[3]="sed -i -e 's@%APPLICATION%@$prefix@g' $taskfile_cleanup"
-cmd_list[4]="sed -i -e 's@%TAG%@$tag@g' $taskfile_cleanup"
-cmd_list[5]="sed -i -e 's@%REPOSITORY%@$1@g' $taskfile_docker"
-cmd_list[6]="sed -i -e 's@%BRANCH%@$2@g' $taskfile_docker"
-cmd_list[7]="sed -i -e 's@%PROJECT%@$project@g' $taskfile_docker"
-cmd_list[8]="sed -i -e 's@%RSPEC%@$rspec@g' $taskfile_docker"
-cmd_list[9]="sed -i -e 's@%GEMFILE%@$gemfile@g' $taskfile_docker"
+cmd_list[4]="sed -i -e 's@%REPOSITORY%@$1@g' $taskfile_docker"
+cmd_list[5]="sed -i -e 's@%BRANCH%@$2@g' $taskfile_docker"
+cmd_list[6]="sed -i -e 's@%PROJECT%@$project@g' $taskfile_docker"
+cmd_list[7]="sed -i -e 's@%RSPEC%@$rspec@g' $taskfile_docker"
+cmd_list[8]="sed -i -e 's@%GEMFILE%@$gemfile@g' $taskfile_docker"
 for cmd in "${cmd_list[@]}"; do
   eval ${cmd}
 done

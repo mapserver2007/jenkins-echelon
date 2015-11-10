@@ -1,4 +1,3 @@
 - name: docker container clear
   shell: docker ps -a | grep %APPLICATION%_%TAG% | awk '{print $1}' | xargs --no-run-if-empty docker rm -f
-  tags: %TAG%
   sudo: yes
