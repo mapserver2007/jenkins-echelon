@@ -89,5 +89,5 @@ eval ${runtest}
 eval ${dockercp}
 
 # execte ansible cleanup
-ansible_cleanup="ansible-playbook -t ${container_name} -i 'localhost,' ansible/cleanup.yml"
+ansible_cleanup="ansible-playbook -i 'localhost,' ansible/cleanup.yml"
 eval ${ansible_cleanup}
